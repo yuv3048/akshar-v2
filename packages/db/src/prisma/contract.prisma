@@ -1,0 +1,174 @@
+// use prisma-8
+model User {
+  id              String                     @id @default(uuid())
+  email           String                     @unique
+  fname           String
+  lname           String?
+  passwordHash    String?
+  emailVerifiedAt TimestamptzString?
+
+  pinHash         String?
+
+  googleId        String?                    @unique
+  githubId        String?                    @unique
+
+  posts           Post[]
+  sessions        Session[]
+
+  followers       Follow[]                   @relation("Following")
+  following       Follow[]                   @relation("Followers")
+
+  notifications   Notification[]
+
+  createdAt       TimestamptzString          @default(now())
+  updatedAt       temporal.updatedAtString()
+}
+
+model Post {
+  id        String                     @id @default(uuid())
+  title     String
+  content   String
+  author    User                       @relation(fields:[authorId], references:[id], onDelete: Cascade)
+  authorId  String
+
+  likes     Like[]
+  bookmarks Bookmark[]
+  comments  Comment[]
+
+  published Boolean                    @default(false)
+
+  createdAt TimestamptzString          @default(now())
+  updatedAt temporal.updatedAtString()
+
+  @@index([authorId])
+  @@index([published, createdAt])
+}
+
+model PostView {
+  id        String            @id @default(uuid())
+
+  postId    String
+
+  post      Post              @relation(fields:[postId], references:[id], onDelete: Cascade)
+
+  sessionId String?
+  userId    String?
+
+  viewedAt  TimestamptzString @default(now())
+
+  @@index([postId, viewedAt])
+  @@index([userId])
+}
+
+model Follow {
+  id          String            @id @default(uuid())
+
+  followerId  String
+  followingId String
+
+  follower    User              @relation("Following", fields:[followerId], references:[id], onDelete: Cascade)
+
+  following   User              @relation("Followers", fields:[followingId], references:[id], onDelete: Cascade)
+
+  createdAt   TimestamptzString @default(now())
+
+  @@unique([followerId, followingId])
+  @@index([followerId])
+  @@index([followingId])
+}
+
+model Bookmark {
+  id        String            @id @default(uuid())
+
+  userId    String
+  postId    String
+
+  user      User              @relation(fields:[userId], references:[id], onDelete: Cascade)
+
+  post      Post              @relation(fields:[postId], references:[id], onDelete: Cascade)
+
+  createdAt TimestamptzString @default(now())
+
+  @@unique([userId, postId])
+  @@index([userId])
+  @@index([postId])
+}
+
+model Like {
+  id        String            @id @default(uuid())
+
+  userId    String
+  postId    String
+
+  user      User              @relation(fields:[userId], references:[id], onDelete: Cascade)
+
+  post      Post              @relation(fields:[postId], references:[id], onDelete: Cascade)
+
+  createdAt TimestamptzString @default(now())
+
+  @@unique([userId, postId])
+  @@index([userId])
+  @@index([postId])
+}
+
+model Comment {
+  id        String                     @id @default(uuid())
+
+  content   String
+
+  userId    String
+  postId    String
+
+  user      User                       @relation(fields:[userId], references:[id], onDelete: Cascade)
+
+  post      Post                       @relation(fields:[postId], references:[id], onDelete: Cascade)
+
+  createdAt TimestamptzString          @default(now())
+  updatedAt temporal.updatedAtString()
+
+  @@index([postId])
+  @@index([userId])
+}
+
+model Session {
+  id                String                     @id @default(uuid())
+  userId            String
+  user              User                       @relation(fields:[userId], references:[id], onDelete: Cascade)
+
+  deviceId          String
+  refreshTokenHash  String                     @unique
+  rememberMe        Boolean                    @default(false)
+  lastActivityAt    TimestamptzString
+  idleExpiresAt     TimestamptzString
+  absoluteExpiresAt TimestamptzString
+
+  userAgent         String?
+  ipAddress         String?
+  revokedAt         TimestamptzString?
+
+  createdAt         TimestamptzString          @default(now())
+  updatedAt         temporal.updatedAtString()
+
+  @@index([userId])
+  @@index([deviceId])
+  @@index([userId, deviceId])
+}
+
+model Notification {
+  id        String             @id @default(uuid())
+
+  userId    String
+
+  user      User               @relation(fields:[userId], references:[id], onDelete: Cascade)
+
+  type      String
+  title     String
+  message   String
+
+  readAt    TimestamptzString?
+
+  createdAt TimestamptzString  @default(now())
+
+  @@index([userId, createdAt])
+  @@index([userId, readAt])
+}

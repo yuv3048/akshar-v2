@@ -23,9 +23,15 @@ importers:
       '@akshar/db':
         specifier: workspace:*
         version: link:../../packages/db
+      '@akshar/email':
+        specifier: workspace:*
+        version: link:../../packages/email
       '@akshar/validation':
         specifier: workspace:*
         version: link:../../packages/validation
+      '@react-email/render':
+        specifier: ^2.1.0
+        version: 2.1.0(react-dom@19.2.8(react@19.2.8))(react@19.2.8)
       '@upstash/redis':
         specifier: ^1.39.0
         version: 1.39.0

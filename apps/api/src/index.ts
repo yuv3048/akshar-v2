@@ -1,7 +1,7 @@
 import { MessageBatch } from '@cloudflare/workers-types'
 import app from './app'
 import type { Bindings, OtpEmailJob } from './types'
-import { SendOtpEmail } from './lib/email'
+import { sendVerificationOtpEmail } from './lib/email/send-email'
 
 export default{
     fetch : app.fetch,
@@ -12,11 +12,11 @@ export default{
     ){
         for(const message of batch.messages){
             try{
-                await SendOtpEmail(env.RESEND_API_KEY, message.body);
+                await sendVerificationOtpEmail(env, message.body);
 
                 message.ack();
             }catch (error){
-                console.error("Failed to send OTP email:", error);
+                console.error("Failed to send verification email:", error);
 
                 message.retry();
             }

@@ -4,8 +4,17 @@
   "version": "0.0.0",
   "type": "module",
   "exports": {
-    ".": "./src/index.ts",
-    "./templates/*": "./src/templates/*.tsx"
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    },
+    "./templates/*": {
+      "types": "./dist/templates/*.d.ts",
+      "import": "./dist/templates/*.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc"
   },
   "dependencies": {
     "react": "19.2.8",

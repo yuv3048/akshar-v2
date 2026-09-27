@@ -51,14 +51,6 @@ export const signup = async (env:Bindings, data: SignupInput) => {
   }
 
   //4. New - check email -  send welcome email.
-  const welcomeResult = await sendWelcomeEmail(env, data.email);
-
-  if(!welcomeResult.success){
-    return{
-      success: false,
-      reason: "EMAIL_DELIVERY_FAILED",
-    }
-  }
 
 
   //5. Hash password

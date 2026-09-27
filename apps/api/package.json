@@ -8,7 +8,9 @@
   },
   "dependencies": {
     "@akshar/db": "workspace:*",
+    "@akshar/email": "workspace:*",
     "@akshar/validation": "workspace:*",
+    "@react-email/render": "^2.1.0",
     "@upstash/redis": "^1.39.0",
     "hono": "^4.13.9",
     "resend": "^6.29.0"

@@ -15,4 +15,6 @@ export type Bindings = {
     CLOUDINARY_API_SECRET: string;
 
     AKSHAR_OTP_EMAIL: Queue<OtpEmailJob>;
+
+    APP_URL:string;
 }

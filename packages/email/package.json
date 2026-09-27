@@ -1,0 +1,21 @@
+{
+  "name": "@akshar/email",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "exports": {
+    ".": "./src/index.ts",
+    "./templates/*": "./src/templates/*.tsx"
+  },
+  "dependencies": {
+    "react": "19.2.8",
+    "react-email": "6.11.0",
+    "tailwindcss": "4.3.3"
+  },
+  "devDependencies": {
+    "@react-email/ui": "6.11.0",
+    "@types/react": "19.2.18",
+    "@types/react-dom": "19.2.5",
+    "typescript": "7.0.2"
+  }
+}

@@ -10,5 +10,9 @@ export type Bindings = {
     UPSTASH_REDIS_REST_TOKEN:string;
     RESEND_API_KEY:string;
 
+    CLOUDINARY_CLOUD_NAME: string;
+    CLOUDINARY_API_KEY: string;
+    CLOUDINARY_API_SECRET: string;
+
     AKSHAR_OTP_EMAIL: Queue<OtpEmailJob>;
 }

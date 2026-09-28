@@ -1,6 +1,6 @@
-import { createRedis } from "../../lib/redis"
-import { generateOtp, hashOtp } from "../../lib/otp"
-import type { Bindings } from "../../types"
+import { createRedis } from "../../../lib/redis"
+import { generateOtp, hashOtp } from "../../../lib/otp"
+import type { Bindings } from "../../../types"
 
 const OTP_TTL = 60*7;
 const MAX_ATTEMPTS = 5;

@@ -1,6 +1,6 @@
 import { Hono } from 'hono'
 import healthRouter from './routes/health'
-import authRouter from './features/auth/auth.routes'
+import authRouter from './features/auth/routes/auth.routes'
 import type { Bindings } from './types'
 import redisTestRouter from './routes/redis-test'
 import { sendVerificationOtpEmail } from './lib/email/send-email'

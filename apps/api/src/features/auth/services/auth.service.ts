@@ -1,11 +1,10 @@
 import { LoginInput, SignupInput } from "@akshar/validation"
 import { db } from "@akshar/db"
-import { hashPassword, verifyPassword } from "./password";
-import { Bindings } from "../../types";
-import { generateOtp } from "../../lib/otp";
+import { hashPassword, verifyPassword } from "../password";
+import { Bindings } from "../../../types";
+import { generateOtp } from "../../../lib/otp";
 import { getEmailVerificationState, storeEmailVerificationOtp } from "./otp.service";
 import { createPendingSignup, getPendingSignup } from "./pending-signup.service";
-import { sendWelcomeEmail } from "./email.service";
 
 export const signup = async (env:Bindings, data: SignupInput) => {
   

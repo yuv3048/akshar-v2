@@ -1,5 +1,5 @@
 import type { Context } from 'hono'
-import { login, signup } from './auth.service'
+import { login, signup } from '../services/auth.service'
 import { loginSchema, signupSchema } from '@akshar/validation'
 
 export const signupController = async (c: Context) => {
